@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  kali:
+    build: .
+    container_name: kali-unit5
+    ports:
+      - "2226:22"
+      - "8084:8080"
+      - "9392:9392"  # OpenVAS
+    volumes:
+      - ./data:/root/data
+    environment:
+      - TZ=Europe/Madrid
+    privileged: true
+    restart: unless-stopped
