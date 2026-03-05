@@ -1,0 +1,7 @@
+#### Opción B: VNC (Interfaz Gráfica)
+```bash
+# Abrir en navegador
+http://localhost:6080
+
+# No requiere password (en modo desarrollo)
+```

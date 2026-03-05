@@ -10,15 +10,15 @@ version: '3.8'
 # ============================================================
 
 services:
-  # ========================================================
-  # KALI LINUX - Máquina Atacante
-  # ========================================================
+   # ========================================================
+   # KALI LINUX - Máquina Atacante
+   # ========================================================
   kali:
-    image: kalilinux/kali-rolling:latest
+    build: .
     container_name: ethical-hacking-kali
     ports:
       - "2222:22"
-      - "6080:6080"
+      - "6080:8080"
     volumes:
       - ./data:/root/data
       - ./scripts:/root/scripts
@@ -27,15 +27,6 @@ services:
     networks:
       - lab-network
     privileged: true
-    command: bash -c "
-      apt-get update &&
-      apt-get install -y openssh-server net-tools python3 python3-pip curl wget vim git &&
-      echo 'root:toor' | chpasswd &&
-      sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
-      pip3 install openai requests beautifulsoup4 &&
-      service ssh start &&
-      tail -f /dev/null
-      "
 
   # API LLM VULNERABLE (Objetivo Principal)
   # Simula un Chatbot con vulnerabilidades de Prompt Injection
