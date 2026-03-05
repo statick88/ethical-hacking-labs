@@ -1,15 +1,39 @@
 version: '3.8'
 
+# LABORATORIO 6: EVASIÓN DE DEFENSAS
+
 services:
   kali:
-    build: .
-    container_name: kali-unit6
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2227:22"
-      - "8085:8080"
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update && apt-get install -y openssh-server net-tools curl wget vim msfvenom upx-x86 && 
+      echo 'root:toor' | chpasswd && sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && 
+      service ssh start && tail -f /dev/null"
+
+  # Windows objetivo con AV
+  target-win:
+    image: gists/windows-server-core
+    container_name: target-windows
+    ports:
+      - "3389:3389"
+    networks:
+      - lab-network
     restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.61.0/24

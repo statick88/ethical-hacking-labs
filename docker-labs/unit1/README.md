@@ -1,155 +1,193 @@
-# Unit 1 - Fundamentos y Reconocimiento Agéntico
+# 🦸 Unit 1: Reconocimiento y Enumeración - LAB PRÁCTICO
 
-## Objectives
+## 🎯 Objetivos del Laboratorio
 
-1. Understand ethical hacking fundamentals
-2. Learn agentic reconnaissance techniques
-3. Master passive and active information gathering
-4. Understand OSINT (Open Source Intelligence) methods
-5. Learn to use automated reconnaissance tools
+En este laboratorio practicarás **técnicas de reconocimiento y enumeración** atacando objetivos reales en un entorno controlado:
 
-## Tools Included
+1. **OSINT** - Recolección de información de fuentes abiertas
+2. **Escaneo de red** - Identificar hosts y servicios activos
+3. **Enumeración de puertos** - Descubrir servicios expuestos
+4. **Análisis de servicios** - Identificar versiones y vulnerabilidades
 
-- **Kali Linux**: Penetration testing distribution
-- **Nmap**: Network scanner
-- **Wireshark**: Network analyzer
-- **Sublist3r**: Subdomain enumeration
-- **Dirb**: Web directory enumeration
-- **Recon-ng**: Web reconnaissance framework
+---
 
-## Lab Setup
+## 🏗️ Arquitectura del Laboratorio
 
-### Build and Start Containers
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      LABORATORIO 1                                │
+│                   RECONOCIMIENTO Y ENUMERACIÓN                    │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│   ┌─────────────┐                            ┌─────────────┐    │
+│   │    KALI    │        ATAQUE               │   OBJETIVOS │    │
+│   │   LINUX    │  ──────────────────────→     │   VULNES   │    │
+│   │ (Atacante) │                            │             │    │
+│   │ 192.168.56 │                            │             │    │
+│   └─────────────┘                            └─────────────┘    │
+│        │                                            │            │
+│        │  • Nmap                                    │            │
+│        │  • Netdiscover                            │            │
+│        │  • Enum4linux                            │            │
+│        │  • Nikto                                 │            │
+│        │  • WhatWeb                              │            │
+│        │                                          │            │
+│        │        ┌─────────────┐  ┌────────────┐  │            │
+│        │        │ Metasploita │  │ ColdFusion│  │            │
+│        │        │    ble 2    │  │    10     │  │            │
+│        │        │ :80,21,22  │  │   :80     │  │            │
+│        │        │ 3306,2121  │  │            │  │            │
+│        │        └─────────────┘  └────────────┘  │            │
+│        │                                          │            │
+│        │            RED: 192.168.56.0/24          │            │
+└────────┼──────────────────────────────────────────┼────────────┘
+         │
+    SSH:2222
+    VNC:6080
+```
+
+---
+
+## 🚀 Iniciar el Laboratorio
 
 ```bash
 cd docker-labs/unit1
 docker-compose up -d
 ```
 
-### Access the Lab
-
-1. **Web Interface**: http://localhost:8080 (Kali Desktop via noVNC)
-2. **SSH Access**:
-   ```bash
-   ssh root@localhost -p 2222
-   Password: toor
-   ```
-
-### Stop and Cleanup
+### Verificar que todo esté corriendo:
 
 ```bash
-cd docker-labs/unit1
+docker ps | grep -E "kali|target|vuln"
+```
+
+**Esperado:**
+```
+CONTAINER ID   IMAGE                    PORTS                    NAMES
+...           ethical-hacking-kali      2222->22, 6080->6080    ethical-hacking-kali
+...           target-metasploitable     80->80, 22->2222        target-metasploitable
+...           target-coldfusion         80->8081                target-coldfusion
+```
+
+---
+
+## 🎯 Objetivos Disponibles para Atacar
+
+| Objetivo | IP | Puertos | Servicio | Vulnerabilidad |
+|----------|-----|---------|---------|---------------|
+| **Metasploitable2** | 192.168.56.x | 21,22,80,3306 | FTP,SSH,HTTP,MySQL | Múltiples |
+| **ColdFusion 10** | 192.168.56.x | 80 | HTTP | ColdFusion |
+
+---
+
+## 🔨 Herramientas de Ataque
+
+Ya incluidas en Kali:
+- **nmap** - Escaneo de puertos
+- **netdiscover** - Descubrimiento de hosts
+- **enum4linux** - Enumeración SMB
+- **nikto** - Scanner web
+- **whatweb** - Identificación web
+- **dirb** - Directorios web
+- **wireshark** - Captura de tráfico
+
+---
+
+## ⚔️ EJERCICIOS DE ATAQUE
+
+### Ejercicio 1: Descubrimiento de Red
+
+```bash
+# Conectar al Kali
+ssh root@localhost -p 2222
+# Password: toor
+
+# Descubrir hosts en la red
+nmap -sn 192.168.56.0/24
+
+# Escaneo rápido de puertos
+nmap -F 192.168.56.0/24
+```
+
+### Ejercicio 2: Enumeración de Metasploitable2
+
+```bash
+# Escaneo completo
+nmap -sV -sC -p- 192.168.56.x
+
+# Enumerar servicios
+nmap -sV --script=banner 192.168.56.x
+
+# Detectar SO
+nmap -O 192.168.56.x
+```
+
+### Ejercicio 3: Enumeración Web
+
+```bash
+# Identificar tecnologías
+whatweb http://192.168.56.x
+
+# Buscar directorios
+nikto -h http://192.168.56.x
+
+# Dirb
+dirb http://192.168.56.x
+```
+
+### Ejercicio 4: Enumeración SMB
+
+```bash
+# Enum4Linux
+enum4linux 192.168.56.x
+
+# Nmap scripts SMB
+nmap --script=smb-enum-users,smb-enum-shares 192.168.56.x
+```
+
+### Ejercicio 5: Análisis de Servicios
+
+```bash
+# FTP anónimo
+ftp 192.168.56.x
+# Probar: anonymous/anonymous
+
+# MySQL
+mysql -h 192.168.56.x -u root -p
+# Probar sin password
+
+# SSH
+ssh -v 192.168.56.x
+```
+
+---
+
+## 📋 Checklist de Entrega
+
+| # | Tarea | Completado |
+|---|-------|-----------|
+| 1 | Hosts activos descubiertos | ☐ |
+| 2 | Mapa de puertos completo | ☐ |
+| 3 | Servicios identificados con versiones | ☐ |
+| 4 | Vulnerabilidades encontradas | ☐ |
+| 5 | Informe de reconocimiento | ☐ |
+
+---
+
+## 🛑 cleanup
+
+```bash
+# Detener laboratorio
 docker-compose down
 
-# Remove volumes (deletes all data)
+# Eliminar todo
 docker-compose down -v
 ```
 
-## Lab Exercises
+---
 
-### Exercise 1: Network Scanning with Nmap
+## ⚠️ Notas de Seguridad
 
-1. Scan a target network:
-   ```bash
-   nmap -sP 192.168.0.0/24
-   ```
-
-2. Perform a detailed scan:
-   ```bash
-   nmap -sV -sC -p- 192.168.0.100
-   ```
-
-3. Save scan results:
-   ```bash
-   nmap -oN scan_results.txt -oX scan_results.xml 192.168.0.100
-   ```
-
-### Exercise 2: Web Reconnaissance with Recon-ng
-
-1. Start Recon-ng:
-   ```bash
-   recon-ng
-   ```
-
-2. Add a domain:
-   ```bash
-   [recon-ng] > use recon/domains-hosts/baidu_site
-   [recon-ng] > set SOURCE example.com
-   [recon-ng] > run
-   ```
-
-3. Export results:
-   ```bash
-   [recon-ng] > use report/csv
-   [recon-ng] > set FILENAME results.csv
-   [recon-ng] > run
-   ```
-
-### Exercise 3: Subdomain Enumeration
-
-1. Use Sublist3r:
-   ```bash
-   sublist3r -d example.com -o subdomains.txt
-   ```
-
-2. Use dirb to find hidden directories:
-   ```bash
-   dirb http://example.com
-   ```
-
-### Exercise 4: Packet Analysis with Wireshark
-
-1. Capture network traffic:
-   ```bash
-   tcpdump -i eth0 -w capture.pcap
-   ```
-
-2. Analyze captured packets:
-   ```bash
-   wireshark capture.pcap
-   ```
-
-### Exercise 5: OSINT Gathering
-
-1. Search for information about a target:
-   ```bash
-   python3 -m pip install google
-   python3 google-search.py "target company"
-   ```
-
-2. Check social media:
-   ```bash
-   python3 social-scan.py "target_username"
-   ```
-
-## Resources
-
-- [Nmap Documentation](https://nmap.org/book/man.html)
-- [Wireshark Documentation](https://www.wireshark.org/docs/)
-- [Recon-ng Wiki](https://github.com/lanmaster53/recon-ng/wiki)
-- [Sublist3r](https://github.com/aboul3la/Sublist3r)
-- [OSINT Framework](https://osintframework.com/)
-
-## Troubleshooting
-
-### Cannot connect to Kali desktop
-
-Check container status:
-```bash
-cd docker-labs/unit1
-docker-compose ps
-```
-
-### VNC connection fails
-
-Check if the container is running and port is exposed:
-```bash
-netstat -tuln | grep 8080
-```
-
-### Permission denied when running Nmap
-
-Run Nmap as root:
-```bash
-sudo nmap -sP 192.168.0.0/24
-```
+- **SOLO atacar objetivos dentro de la red del contenedor**
+- **NO intentar acceder a redes externas**
+- Este es un entorno de aprendizaje controlado

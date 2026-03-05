@@ -1,15 +1,78 @@
 version: '3.8'
 
+# ============================================================
+# LABORATORIO 3: EXPLOTACIÓN WEB Y APIS
+# ============================================================
+# Objetivos vulnerables para practicar:
+# - OWASP Top 10
+# - SQL Injection
+# - XSS
+# - CSRF
+# - IDOR
+# ============================================================
+
 services:
+  # KALI LINUX - Atacante
   kali:
-    build: .
-    container_name: kali-unit3
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2224:22"
-      - "8082:8080"
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update &&
+      apt-get install -y openssh-server net-tools nmap curl wget vim sqlmap burp-suite &&
+      echo 'root:toor' | chpasswd &&
+      sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
+      service ssh start &&
+      tail -f /dev/null
+      "
+
+  # OWASP WebGoat - Objetivos OWASP
+  webgoat:
+    image: owasp/webgoat
+    container_name: target-webgoat
+    ports:
+      - "8081:8080"
+      - "9090:9090"
+    environment:
+      - WEBGOAT_PORT=8080
+    networks:
+      - lab-network
     restart: unless-stopped
+
+  # DVWA - Damn Vulnerable Web App
+  dvwa:
+    image: vulnerables/dvwa
+    container_name: target-dvwa
+    ports:
+      - "8082:80"
+    environment:
+      - PHP_UPLOAD_MAX_FILESIZE=100M
+    networks:
+      - lab-network
+    restart: unless-stopped
+
+  # Juice Shop - OWASP
+  juice-shop:
+    image: bkimminich/juice-shop
+    container_name: target-juice-shop
+    ports:
+      - "8083:3000"
+    networks:
+      - lab-network
+    restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.58.0/24

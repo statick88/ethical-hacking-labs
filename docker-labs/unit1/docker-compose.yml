@@ -1,15 +1,48 @@
-version: '3.8'
+# ============================================================
+# LABORATORIO 1: RECONOCIMIENTO Y ENUMERACIÓN
+# ============================================================
 
 services:
+  # KALI LINUX - Máquina Atacante
   kali:
-    build: .
-    container_name: kali-unit1
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
       - "2222:22"
-      - "8080:8080"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update &&
+      apt-get install -y openssh-server net-tools nmap tcpdump wget curl vim &&
+      echo 'root:toor' | chpasswd &&
+      sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
+      service ssh start &&
+      tail -f /dev/null
+      "
+
+  # Metasploitable2 - Objetivos vulnerables
+  vulnerable-services:
+    image: tleemcjr/metasploitable2:latest
+    container_name: target-metasploitable
+    ports:
+      - "2121:21"
+      - "2223:22"
+      - "80:80"
+      - "3306:3306"
+    networks:
+      - lab-network
+    command: sh -c "/bin/services.sh && tail -f /dev/null"
     restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.56.0/24

@@ -1,15 +1,58 @@
 version: '3.8'
 
+# ============================================================
+# LABORATORIO 4: HACKING DE IDENTIDAD Y AD
+# ============================================================
+
 services:
   kali:
-    build: .
-    container_name: kali-unit4
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2225:22"
-      - "8083:8080"
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update &&
+      apt-get install -y openssh-server net-tools curl wget vim enum4linux smbclient && echo 'root:toor' | chpasswd &&
+      pip3 install impacket bloodhound neo4j &&
+      sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && service ssh start && tail -f /dev/null"
+
+  # Active Directory simulado
+  ad:
+    image: osixia/openldap:latest
+    container_name: target-ad
+    ports:
+      - "389:389"
+      - "636:636"
+    environment:
+      - LDAP_ORGANISATION=pentestlab
+      - LDAP_DOMAIN=pentestlab.local
+      - LDAP_ADMIN_PASSWORD=Admin123!
+    networks:
+      - lab-network
     restart: unless-stopped
+
+  # Windows Server simulado
+  windows-srv:
+    image: niccokunzmann/windows-server-core-ad:latest
+    container_name: target-windows
+    ports:
+      - "445:445"
+      - "3389:3389"
+    networks:
+      - lab-network
+    restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.59.0/24

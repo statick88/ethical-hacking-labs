@@ -1,15 +1,40 @@
 version: '3.8'
 
+# LABORATORIO 7: CIBERSEGURIDAD INDUSTRIAL (ICS/SCADA)
+
 services:
   kali:
-    build: .
-    container_name: kali-unit7
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2228:22"
-      - "8086:8080"
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update && apt-get install -y openssh-server net-tools curl wget vim nmap && 
+      echo 'root:toor' | chpasswd && sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && 
+      pip3 install pymodbus && service ssh start && tail -f /dev/null"
+
+  # OpenPLC - PLC simulado
+  openplc:
+    image: openplc/plc:latest
+    container_name: target-plc
+    ports:
+      - "8081:8080"
+      - "502:502"  # Modbus
+    networks:
+      - lab-network
     restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.62.0/24

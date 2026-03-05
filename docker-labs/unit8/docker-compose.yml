@@ -1,15 +1,98 @@
 version: '3.8'
 
+# ============================================================
+# LABORATORIO 8: PROYECTO FINAL - ENTORNO MIXTO COMPLETO
+# ============================================================
+# Este lab incluye TODOS los objetivos de los labs anteriores
+# para un pentest end-to-end completo
+# ============================================================
+
 services:
+  # ========================================================
+  # KALI LINUX - Atacante principal
+  # ========================================================
   kali:
-    build: .
-    container_name: kali-unit8
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2229:22"
-      - "8087:8080"
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update && apt-get install -y openssh-server net-tools curl wget vim nmap sqlmap nikto burp-suite metasploit && 
+      echo 'root:toor' | chpasswd && sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && 
+      service ssh start && tail -f /dev/null"
+
+  # ========================================================
+  # OBJETIVO 1: Metasploitable2 (Red Team)
+  # ========================================================
+  metasploitable:
+    image: tleemcjr/metasploitable2:latest
+    container_name: target-metasploitable
+    ports:
+      - "21:21"
+      - "22:22"
+      - "23:23"
+      - "25:25"
+      - "80:80"
+      - "3306:3306"
+      - "5432:5432"
+      - "5900:5900"
+      - "6667:6667"
+    networks:
+      - lab-network
     restart: unless-stopped
+
+  # ========================================================
+  # OBJETIVO 2: DVWA (Web)
+  # ========================================================
+  dvwa:
+    image: vulnerables/dvwa
+    container_name: target-dvwa
+    ports:
+      - "8082:80"
+    networks:
+      - lab-network
+    restart: unless-stopped
+
+  # ========================================================
+  # OBJETIVO 3: LLM Vulnerable (AI)
+  # ========================================================
+  vulnerable-llm:
+    image: python:3.11-slim
+    container_name: target-llm
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./llm-app:/app
+    networks:
+      - lab-network
+    working_dir: /app
+    command: bash -c "pip install flask flask-cors 2>/dev/null && python app.py"
+    restart: unless-stopped
+
+  # ========================================================
+  # OBJETIVO 4: OpenPLC (ICS)
+  # ========================================================
+  openplc:
+    image: openplc/plc:latest
+    container_name: target-plc
+    ports:
+      - "8083:8080"
+      - "502:502"
+    networks:
+      - lab-network
+    restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.68.0/24

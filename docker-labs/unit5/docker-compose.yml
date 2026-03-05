@@ -1,16 +1,47 @@
 version: '3.8'
 
+# LABORATORIO 5: PENTESTING AUTÓNOMO
+
 services:
   kali:
-    build: .
-    container_name: kali-unit5
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2226:22"
-      - "8084:8080"
-      - "9392:9392"  # OpenVAS
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update && apt-get install -y openssh-server net-tools curl wget vim metasploit && 
+      echo 'root:toor' | chpasswd && sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config && 
+      service ssh start && tail -f /dev/null"
+
+  # Metasploitable2 - Objetivo principal
+  metasploitable:
+    image: tleemcjr/metasploitable2:latest
+    container_name: target-metasploitable
+    ports:
+      - "21:21"    # FTP
+      - "22:22"    # SSH
+      - "23:23"    # Telnet
+      - "25:25"    # SMTP
+      - "80:80"    # HTTP
+      - "3306:3306" # MySQL
+      - "5432:5432" # PostgreSQL
+      - "5900:5900" # VNC
+      - "6667:6667" # IRC
+    networks:
+      - lab-network
     restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.60.0/24

@@ -1,15 +1,88 @@
 version: '3.8'
 
+# ============================================================
+# LABORATORIO 2: VULNERABILIDADES EN IA Y LLMs
+# ============================================================
+# Este lab contiene:
+# - Kali Linux (atacante)
+# - API LLM vulnerable para practicar Prompt Injection
+# - Herramientas de evaluación de seguridad en LLMs
+# ============================================================
+
 services:
+  # ========================================================
+  # KALI LINUX - Máquina Atacante
+  # ========================================================
   kali:
-    build: .
-    container_name: kali-unit2
+    image: kalilinux/kali-rolling:latest
+    container_name: ethical-hacking-kali
     ports:
-      - "2223:22"
-      - "8081:8080"
+      - "2222:22"
+      - "6080:6080"
     volumes:
       - ./data:/root/data
+      - ./scripts:/root/scripts
     environment:
       - TZ=Europe/Madrid
+    networks:
+      - lab-network
     privileged: true
+    command: bash -c "
+      apt-get update &&
+      apt-get install -y openssh-server net-tools python3 python3-pip curl wget vim git &&
+      echo 'root:toor' | chpasswd &&
+      sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config &&
+      pip3 install openai requests beautifulsoup4 &&
+      service ssh start &&
+      tail -f /dev/null
+      "
+
+  # API LLM VULNERABLE (Objetivo Principal)
+  # Simula un Chatbot con vulnerabilidades de Prompt Injection
+  # ========================================================
+  vulnerable-llm:
+    image: python:3.11-slim
+    container_name: target-llm-api
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./llm-app:/app
+    environment:
+      - FLASK_ENV=development
+      - SECRET_KEY=insecure_key_for_lab
+    networks:
+      - lab-network
+    working_dir: /app
+    command: >
+      bash -c "
+      pip install flask flask-cors openai 2>/dev/null &&
+      python app.py
+      "
     restart: unless-stopped
+
+  # ========================================================
+  # GANDALF SIMULADO - JAILBREAK CHALLENGE
+  # ========================================================
+  gandalf-sim:
+    image: python:3.11-slim
+    container_name: target-gandalf
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./gandalf:/app
+    networks:
+      - lab-network
+    working_dir: /app
+    command: >
+      bash -c "
+      pip install flask flask-cors 2>/dev/null &&
+      python gandalf.py
+      "
+    restart: unless-stopped
+
+networks:
+  lab-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.57.0/24
