@@ -33,7 +33,7 @@ RUN chmod 600 /root/.vnc/passwd
 RUN cat > /root/start_vnc.sh << 'EOL'
 #!/bin/bash
 tightvncserver :1 -geometry 1280x720 -depth 24
-websockify -D --web=/usr/share/novnc/ 8080 localhost:5901
+websockify -D --web=/usr/share/novnc 8080 localhost:5901
 EOL
 
 RUN chmod +x /root/start_vnc.sh
