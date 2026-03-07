@@ -1,0 +1,193 @@
+---
+title: "Unidad 8: Post-Explotación, Reporte y Ética"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- Post-Explotación
+- Reportes Profesionales
+- Marco Ético
+- Marco Legal
+- Proyecto Final
+
+---
+
+# Post-Explotación
+
+## Persistence
+
+- Registry Run Keys
+- Scheduled Tasks
+- Services
+- SSH Keys (Linux)
+
+---
+
+# Privilege Escalation
+
+## Windows
+
+- Kernel exploits
+- Service misconfigs
+- Token stealing
+
+## Linux
+
+- SUID/SGID
+- sudo misconfigs
+- Capabilities
+
+---
+
+# Data Exfiltration
+
+## Técnicas
+
+- DNS Tunneling
+- HTTPS
+- Cloud storage
+
+---
+
+# Reportes
+
+## Estructura
+
+- **Ejecutivo**: 1-3 páginas, gestión
+- **Técnico**: Completo, para técnicos
+
+## Finding Template
+
+- Severidad / CVSS
+- Descripción
+- Pasos para reproducir
+- Impacto
+- Recomendaciones
+
+---
+
+# Marco Ético
+
+## Principios
+
+- Autorización por escrito
+- Confidencialidad
+- Integridad
+- Divulgación responsable
+
+## Organizaciones
+
+- EC-Council
+- (ISC)²
+- CREST
+
+---
+
+# Marco Legal
+
+## España
+
+- Ley Orgánica 10/1995
+- Art. 197 bis: Acceso ilícito
+- Ley 34/2002 (LSSI)
+
+## GDPR
+
+- Art. 32: Seguridad
+- Art. 33: Notificación (72h)
+- Sanciones: 20M€ o 4% facturación
+
+---
+
+# Caso Práctico: Responsible Disclosure
+
+## Escenario
+
+Vulnerabilidad crítica en fintech
+
+## Proceso
+
+1. Documentar hallazgo
+2. Contactar CSIRT
+3. Coordinar disclosure (90 días)
+4. CVE assignment
+
+---
+
+# C2 Frameworks Comparativa
+
+## Cobalt Strike
+
+- Comercial ($3500/año)
+- Malleable C2 profiles
+- Sleep obfuscation
+
+## Sliver
+
+- Open source
+- mTLS + DNS channels
+- BOF support
+
+---
+
+# Proyecto Final
+
+## Entregable
+
+- Pentest completo
+- Reporte ejecutivo + técnico
+
+## Evaluación
+
+- 40% Laboratorio
+- 40% Reporte
+- 20% Examen
+
+---
+
+# Data Exfiltration
+
+## Técnicas
+
+- DNS tunneling
+- ICMP exfiltration
+- Steganography
+- Cloud storage abuse
+
+---
+
+# Puntos Clave
+
+- Post-explotación: pivoting + persistence
+- C2: Command & Control remoto
+- Ética: responsible disclosure
+- Legal: Art. 197 bis + GDPR Art. 33
+
+---
+
+# Recursos Continuos
+
+## Plataformas
+
+- TryHackMe / HackTheBox
+- PortSwigger Academy
+- VulnHub
+
+## Certificaciones
+
+- OSCP, CRTP, PNPT
+
+---
+
+# ¿Preguntas?
+
+## Cierre del Curso

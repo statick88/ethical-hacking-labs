@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mutillidae:
+    image: vulnerables/mutillidae
+    container_name: lab7-mutillidae
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mutillidae
+    networks:
+      lab7-net:
+        ipv4_address: 172.18.7.10
+    volumes:
+      - mutillidae-data:/var/www/html
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: lab7-kali
+    tty: true
+    stdin_open: true
+    privileged: true
+    networks:
+      lab7-net:
+        ipv4_address: 172.18.7.20
+    volumes:
+      - kali-data:/root
+    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+networks:
+  lab7-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.7.0/24
+
+volumes:
+  mutillidae-data:
+    driver: local
+  kali-data:
+    driver: local

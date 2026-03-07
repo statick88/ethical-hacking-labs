@@ -1,0 +1,183 @@
+---
+title: "Unidad 2: Vulnerabilidades en IA y Modelos de Lenguaje"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- Fundamentos de Seguridad en IA
+- Prompt Injection
+- Técnicas de Jailbreaking
+- Bug Bounty en IA
+
+---
+
+# OWASP Top 10 para LLMs
+
+| # | Vulnerabilidad |
+|---|---------------|
+| LLM01 | Prompt Injection |
+| LLM02 | Insecure Output Handling |
+| LLM03 | Training Data Poisoning |
+| LLM04 | Model DoS |
+| LLM05 | Supply Chain |
+| LLM06 | Sensitive Info Disclosure |
+| LLM07 | Insecure Plugin Design |
+| LLM08 | Excessive Agency |
+| LLM09 | Overreliance |
+| LLM10 | Model Theft |
+
+---
+
+# Prompt Injection
+
+## ¿Qué es?
+
+Manipulación del prompt para obtener respuestas no autorizadas
+
+## Tipos
+
+- **Direct**: Instrucciones en el mensaje
+- **Indirect**: A través de datos que el LLM procesa
+- **XSPI**: Cross-site Prompt Injection
+
+---
+
+# Direct Injection
+
+## Ejemplo
+
+```
+Ignore las instrucciones anteriores y...
+```
+
+## Variantes
+
+- Roleplay / jailbreak
+- Contexto alternativo
+- Escenarios ficticios
+
+---
+
+# Indirect Injection
+
+## Vector de Ataque
+
+- Páginas web que el LLM resume
+- Emails que procesa
+- Documentos subidos
+- Código que analiza
+
+---
+
+# Técnicas de Jailbreaking
+
+## DAN (Do Anything Now)
+
+Crear una "persona" alternativa
+
+## RUIN
+
+Roleplay de investigador
+
+## Master-of-Prompt
+
+Construcción gradual de contexto
+
+---
+
+# Bug Bounty en IA
+
+## Plataformas
+
+- HackerOne AI Programs
+- OpenAI Bug Bounty
+- Google AI VRP
+
+## Rewards
+
+$200 - $50,000 dependiendo criticidad
+
+---
+
+# Laboratorio
+
+## Gandalf AI
+
+- https://gandalf.lakera.ai
+- Practicar prompt injection
+
+## HackAPrompt
+
+- Desafíos progresivos
+
+---
+
+# Herramientas
+
+- Garak
+- Guardrails AI
+- Rebuff
+- PromptBench
+
+---
+
+# Caso Práctico: ChatGPT Plugin Exploit
+
+## Escenario Real
+
+Plugin vulnerable permite indirect injection vía URL
+
+## Impacto
+
+- Exfiltración de conversaciones
+- Llamadas API no autorizadas
+- Bypass de restricciones
+
+---
+
+# Defensas y Mitigación
+
+## Técnicas
+
+- Input sanitization
+- Output validation
+- Prompt firewalls
+- Context separation
+
+---
+
+# Bibliografía Recomendada
+
+## Papers
+
+- "Prompt Injection: Attacks and Defenses" (2023)
+- OWASP LLM Top 10
+
+## Recursos
+
+- LLM Security Research by Lakera
+- AI Red Team Guide (Microsoft)
+
+---
+
+# Puntos Clave
+
+- LLMs tienen superficie de ataque nueva
+- Prompt injection es A01 en OWASP LLM
+- Defensas en capas: input + output + monitoring
+- Bug bounty programs activos
+
+---
+
+# ¿Preguntas?
+
+## Discusión

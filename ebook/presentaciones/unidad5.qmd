@@ -1,0 +1,177 @@
+---
+title: "Unidad 5: Pentesting Autónomo y Red Teaming"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- Automatización con IA
+- Red Teaming
+- C2 Frameworks
+- Reporting
+
+---
+
+# Agentic Pentesting
+
+## Concepto
+
+Sistemas IA que ejecutan pentests automáticamente
+
+## Herramientas
+
+- PentestGPT
+- AutoPentest
+- ReconAIgent
+
+---
+
+# MITRE ATT&CK
+
+## Framework de TTPs
+
+- Tactics
+- Techniques
+- Procedures
+
+## Uso Práctico
+
+Mapear ataques a matrix
+
+---
+
+# Red Teaming
+
+## Diferencia con Pentest
+
+- Simula adversario real
+- Objetivo: lograr impacto de negocio
+- Sin limites de vulnerabilidades
+
+## Fases
+
+1. Intelligence
+2. Initial Access
+3. Persistence
+4. Lateral Movement
+5. Exfiltration
+
+---
+
+# C2 Frameworks
+
+## Open Source
+
+- **Metasploit**: Ecosistema completo
+- **Sliver**: Moderno, Go
+- **Havoc**: UI moderna
+
+## Comparativa
+
+| Framework | Ventaja |
+|-----------|---------|
+| Metasploit | Documentación |
+| Sliver | Evasión |
+| Havoc | UI/UX |
+
+---
+
+# Reporting
+
+## Estructura
+
+- Executive Summary
+- Technical Findings
+- Remediation
+
+## Priorización
+
+CVSS: Critical (9-10), High (7-8.9), Medium (4-6.9), Low (0.1-3.9)
+
+---
+
+# Herramientas
+
+- AutoRecon
+- Nuclei
+- Dradis
+- Ghostwriter
+
+---
+
+# MITRE ATT&CK Framework
+
+## Tácticas
+
+14 tácticas desde Reconnaissance hasta Impact
+
+## Técnicas
+
+Mapeo de TTPs del adversario
+
+---
+
+# Caso Práctico: Vulnerability Chaining
+
+## Escenario
+
+LFI + File Upload + RCE
+
+## Impacto
+
+Shell como www-data → root
+
+---
+
+# Automatización con Python
+
+## Librería
+
+- requests
+- BeautifulSoup
+- Paramiko
+- Scapy
+
+---
+
+# Laboratorio
+
+## Metasploitable 2
+
+- Pentest completo
+- AutoRecon + Metasploit
+
+---
+
+# IA en Red Teaming
+
+## PentestGPT
+
+Asistente LLM para pentesting
+
+## AutoGPT
+
+Agente autónomo que ejecuta recon
+
+---
+
+# Puntos Clave
+
+- Automatización acelera recon + enumeración
+- CVSS: priorizar críticos (9-10) primero
+- MITRE ATT&CK: framework para TTPs
+- Reporte: executive + technical audiences
+
+---
+
+# ¿Preguntas?
+
+## Discusión

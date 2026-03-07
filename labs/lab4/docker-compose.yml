@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  juice-shop:
+    image: bkimminich/juice-shop
+    container_name: lab4-juice-shop
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - CHALLENGES=ALL
+    networks:
+      lab4-net:
+        ipv4_address: 172.18.4.10
+    volumes:
+      - juice-data:/app
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: lab4-kali
+    tty: true
+    stdin_open: true
+    privileged: true
+    networks:
+      lab4-net:
+        ipv4_address: 172.18.4.20
+    volumes:
+      - kali-data:/root
+    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+networks:
+  lab4-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.4.0/24
+
+volumes:
+  juice-data:
+    driver: local
+  kali-data:
+    driver: local

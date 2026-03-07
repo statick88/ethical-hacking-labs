@@ -1,0 +1,182 @@
+---
+title: "Unidad 7: Ciberseguridad Industrial"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- Introducción a OT
+- Protocolos Industriales
+- OpenClaw y Pentagi
+- Herramientas Avanzadas
+
+---
+
+# Arquitectura Purdue
+
+## Niveles
+
+| Nivel | Componente |
+|-------|------------|
+| 5 | Enterprise |
+| 4 | Business |
+| 3 | DMZ |
+| 2 | HMI/SCADA |
+| 1 | PLCs/RTUs |
+| 0 | Sensores |
+
+---
+
+# Protocolos Industriales
+
+## Modbus
+
+- Puerto 502
+- RTU y TCP
+- Funciones de lectura/escritura
+
+## S7comm
+
+- Siemens
+- Puerto 102
+- Comunicación con PLCs
+
+---
+
+# DNP3 y EtherNet/IP
+
+## DNP3
+
+- SCADA utilities
+- Puerto 20000
+- Master/slave
+
+## EtherNet/IP
+
+- Rockwell Automation
+- Puerto 44818
+- CIP sobre Ethernet
+
+---
+
+# Diferencias IT vs OT
+
+## IT
+
+- CIA: Confidentiality first
+- Parches regulares
+- Downtime aceptable
+
+## OT
+
+- CIA invertido: Availability first
+- Parches con validación
+- Uptime crítico (99.999%)
+
+---
+
+# OpenClaw
+
+## Framework de Hardening
+
+```bash
+python openclaw.py --target IP --report report.html
+```
+
+## Módulos
+
+- Network
+- Logging
+- Authentication
+- Services
+
+---
+
+# Pentagi
+
+## Pentesting OT
+
+- Escaneo automatizado
+- Enumeración de protocolos
+- Vulnerability assessment
+
+---
+
+# Herramientas
+
+- PLCsploit
+- s7scan
+- Boofuzz
+- Wireshark + plugins ICS
+
+---
+
+# Caso Práctico: Stuxnet
+
+## Objetivo
+
+Centrifugadoras nucleares iraníes
+
+## Técnicas
+
+- 4 zero-days
+- Rootkit
+- Manipulación de frecuencia PLC
+
+---
+
+# IEC 62443
+
+## Estándar Internacional
+
+Seguridad para IACS (Industrial Automation and Control Systems)
+
+## Niveles de Seguridad
+
+SL 1-4 (Security Levels)
+
+---
+
+# Zonas y Conductos
+
+## Zonas
+
+Agrupación lógica de activos
+
+## Conductos
+
+Canales de comunicación entre zonas
+
+---
+
+# Laboratorio
+
+## Entorno Simulado
+
+- OpenPLC en Docker
+- Hardening
+- Pentest
+
+---
+
+# NIST SP 800-82
+
+## Guía de Seguridad ICS
+
+- Controles técnicos
+- Segmentación
+- Monitoreo
+
+---
+
+# ¿Preguntas?
+
+## Discusión

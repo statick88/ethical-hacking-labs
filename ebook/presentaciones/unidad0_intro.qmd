@@ -1,0 +1,150 @@
+---
+title: "Ethical Hacking 2026"
+subtitle: "Máster en Ciberseguridad - ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+date: 2026
+format: 
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    code-fold: true
+    code-fullscreen: false
+    reveal-header: false
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Bienvenido al Curso
+
+## Objetivos del Curso
+
+- Dominar técnicas de pentesting autónomo
+- Implementar estrategias de IA para seguridad ofensiva
+- Desarrollar capacidades de Red Team avanzadas
+
+## Duration: 150 horas
+
+## 8 Módulos Especializados
+
+---
+
+# Estructura del Curso
+
+## Módulo 1: Fundamentos y Reconocimiento Agéntico
+
+- Metodología de pentesting
+- OSINT y reconocimiento automatizado
+- Herramientas de escaneo agnóstico
+
+## Módulo 2: Vulnerabilidades en IA
+
+- Prompt Injection
+- Jailbreaking
+- Técnicas de Bug Bounty en IA
+- DAN, RUIN, Master-of-Prompt
+
+## Módulo 3: Explotación Web y APIs 2026
+
+- OWASP Top 10 2026
+- APIs REST y GraphQL
+- Ataques modernos
+
+## Módulo 4: Hacking de Identidad y AD
+
+- Active Directory Moderno
+- Azure AD / Entra ID
+- Técnicas de pivoting
+
+---
+
+# Módulos 5-8
+
+## Módulo 5: Pentesting Autónomo
+
+- Automatización con IA
+- Red Teaming agnóstico
+- Herramientas autonomous
+
+## Módulo 6: Evasión de Defensas
+
+- Bypass de EDR
+- Técnicas de ocultación
+- Antiforense
+
+## Módulo 7: Ciberseguridad Industrial
+
+- OpenClaw para hardening
+- Pentagi para pentesting
+- PLCs y sistemas SCADA
+
+## Módulo 8: Post-Explotación
+
+- Mantenimiento de acceso
+- Generación de reportes
+- Marco ético y legal
+
+---
+
+# Metodología
+
+## Enfoque Práctico
+
+- 40% Laboratorio
+- 40% Reporte
+- 20% Examen teórico
+
+## Laboratorios
+
+- Docker y Kali Linux
+- TryHackMe (Free)
+- Hack The Box
+- Entornos virtuales
+
+---
+
+# Requisitos Previos
+
+## Conocimientos Necesarios
+
+- Fundamentos de redes (TCP/IP)
+- Sistemas operativos (Linux/Windows)
+- Programación básica (Python)
+- Conceptos de seguridad
+
+## Equipamiento
+
+- Mínimo 8GB RAM
+- 100GB disco
+- Virtualización habilitada
+
+---
+
+# Ético
+
+## Reglas de Marco Engagement
+
+- Solo en sistemas autorizados
+- Documentar todo
+- Respetar la privacidad
+- Colaborar con defensores
+
+## Importancia de la Ética
+
+> "Con gran poder viene gran responsabilidad"
+
+- Legalidad
+- Permiso explícito
+- Divulgación responsable
+
+---
+
+# ¡Comenzamos!
+
+## Próximo Paso
+
+**Unidad 1:** Fundamentos y Reconocimiento Agéntico
+
+## Preguntas?
+
+*¿Dudas sobre el curso?*

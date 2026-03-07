@@ -1,0 +1,12 @@
+# Ethical Hacking 2026 - ABACOM
+
+## Módulos del Curso
+
+1. Fundamentos y Reconocimiento Agéntico
+2. Vulnerabilidades en IA y Modelos de Lenguaje
+3. Explotación Web y APIs 2026
+4. Hacking de Identidad y AD Moderno
+5. Pentesting Autónomo y Red Teaming Agéntico
+6. Evasión de Defensas
+7. Ciberseguridad Industrial
+8. Post-Explotación, Reporte y Ética

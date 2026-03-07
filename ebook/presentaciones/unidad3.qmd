@@ -1,0 +1,191 @@
+---
+title: "Unidad 3: Explotación Web y APIs 2026"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- OWASP Top 10 2025
+- APIs Security
+- Web Attacks
+- Laboratorio
+
+---
+
+# OWASP Top 10 2025
+
+| A01 | Broken Access Control |
+| A02 | Cryptographic Failures |
+| A03 | Injection |
+| A04 | Insecure Design |
+| A05 | Security Misconfiguration |
+| A06 | Vulnerable Components |
+| A07 | Auth Failures |
+| A08 | Data Integrity Failures |
+| A09 | Logging Failures |
+| A10 | SSRF |
+
+---
+
+# Broken Access Control
+
+## IDOR
+
+Cambiar IDs para acceder a recursos de otros
+
+## Bypass de restricciones
+
+- Manipulación de parámetros
+- Horizontal / Vertical privilege escalation
+
+---
+
+# Injection
+
+## Tipos
+
+- SQL Injection
+- NoSQL Injection
+- OS Command
+- LDAP
+
+## SQLi Payloads
+
+```
+' OR '1'='1
+' UNION SELECT NULL--
+/*!50000UNION*/ SELECT
+```
+
+---
+
+# APIs Security
+
+## REST
+
+- BOLA
+- BFLA
+- Mass Assignment
+
+## GraphQL
+
+- Introspection
+- Query complexity
+- Injection
+
+---
+
+# XSS
+
+## Tipos
+
+- Reflected
+- Stored
+- DOM-based
+
+## Payloads
+
+```javascript
+<script>alert(1)</script>
+<svg onload=alert(1)>
+<img src=x onerror=alert(1)>
+```
+
+---
+
+# SSRF (Server-Side Request Forgery)
+
+## ¿Qué es?
+
+Forzar al servidor a hacer requests internas
+
+## Vectores
+
+- Cloud metadata (169.254.169.254)
+- Internal services
+- File:// protocol
+
+---
+
+# Herramientas
+
+- Burp Suite Community
+- OWASP ZAP
+- SQLmap
+- ffuf
+- Postman
+
+---
+
+# Caso Práctico: API Rate Limit Bypass
+
+## Escenario
+
+API sin rate limiting + BOLA
+
+## Explotación
+
+Enumerar IDs + automatizar exfiltración
+
+---
+
+# Metodología de Testing Web
+
+## Fases
+
+1. Reconocimiento (subdominios, endpoints)
+2. Mapeo (crawling, spidering)
+3. Fuzzing (directorios, parámetros)
+4. Explotación (SQLi, XSS, IDOR)
+5. Post-explotación (persistencia, pivoting)
+
+---
+
+# Laboratorio
+
+## WebGoat
+
+- SQL Injection
+- XSS
+- IDOR
+
+## PortSwigger Academy
+
+- Ejercicios gratuitos
+
+---
+
+# CORS Misconfiguration
+
+## Problema
+
+`Access-Control-Allow-Origin: *` con credenciales
+
+## Explotación
+
+```javascript
+fetch('https://api.victim.com/data', {credentials: 'include'})
+```
+
+---
+
+# Puntos Clave
+
+- OWASP Top 10 2025: priorizar A01-A03
+- APIs tienen superficie diferente (BOLA/BFLA)
+- Automatización: Burp Suite + scripting
+- Validar input + output en toda la stack
+
+---
+
+# ¿Preguntas?
+
+## Discusión

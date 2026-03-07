@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  hackazon:
+    image: cyberxsecurity/hackazon
+    container_name: lab6-hackazon
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=hackazon
+    networks:
+      lab6-net:
+        ipv4_address: 172.18.6.10
+    volumes:
+      - hackazon-data:/var/www/html
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: lab6-kali
+    tty: true
+    stdin_open: true
+    privileged: true
+    networks:
+      lab6-net:
+        ipv4_address: 172.18.6.20
+    volumes:
+      - kali-data:/root
+    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+networks:
+  lab6-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.6.0/24
+
+volumes:
+  hackazon-data:
+    driver: local
+  kali-data:
+    driver: local

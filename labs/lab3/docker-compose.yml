@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  webgoat:
+    image: webgoat/webgoat-8.0
+    container_name: lab3-webgoat
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=UTC
+    networks:
+      lab3-net:
+        ipv4_address: 172.18.3.10
+    volumes:
+      - webgoat-data:/home/webgoat/.webgoat
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: lab3-kali
+    tty: true
+    stdin_open: true
+    privileged: true
+    networks:
+      lab3-net:
+        ipv4_address: 172.18.3.20
+    volumes:
+      - kali-data:/root
+    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+networks:
+  lab3-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.3.0/24
+
+volumes:
+  webgoat-data:
+    driver: local
+  kali-data:
+    driver: local

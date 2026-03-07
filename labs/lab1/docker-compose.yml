@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: lab1-kali
+    tty: true
+    stdin_open: true
+    privileged: true
+    networks:
+      lab1-net:
+        ipv4_address: 172.18.1.10
+    volumes:
+      - kali-data:/root
+    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+  metasploitable2:
+    image: tutum/metasploitable:latest
+    container_name: lab1-metasploitable
+    tty: true
+    stdin_open: true
+    networks:
+      lab1-net:
+        ipv4_address: 172.18.1.20
+    expose:
+      - "21"
+      - "22"
+      - "23"
+      - "25"
+      - "80"
+      - "139"
+      - "445"
+      - "3306"
+      - "8080"
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+networks:
+  lab1-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.1.0/24
+
+volumes:
+  kali-data:
+    driver: local

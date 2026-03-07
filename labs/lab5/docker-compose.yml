@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  owaspbricks:
+    image: vulnerables/owaspbricks
+    container_name: lab5-bricks
+    ports:
+      - "8080:8080"
+    environment:
+      - TZ=UTC
+    networks:
+      lab5-net:
+        ipv4_address: 172.18.5.10
+    volumes:
+      - bricks-data:/var/www/html
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  kali:
+    image: kalilinux/kali-rolling
+    container_name: lab5-kali
+    tty: true
+    stdin_open: true
+    privileged: true
+    networks:
+      lab5-net:
+        ipv4_address: 172.18.5.20
+    volumes:
+      - kali-data:/root
+    command: tail -f /dev/null
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+        reservations:
+          memory: 1G
+
+networks:
+  lab5-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.5.0/24
+
+volumes:
+  bricks-data:
+    driver: local
+  kali-data:
+    driver: local

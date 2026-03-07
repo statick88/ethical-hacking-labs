@@ -1,0 +1,182 @@
+---
+title: "Unidad 4: Hacking de Identidad y AD Moderno"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- Active Directory Fundamentals
+- AD Attacks
+- Azure AD / Entra ID
+- Pivoting
+
+---
+
+# Arquitectura AD
+
+## Componentes
+
+- Domain
+- Forest
+- OU (Organizational Unit)
+- Domain Controllers
+
+## Protocolos
+
+- Kerberos (puerto 88)
+- LDAP (389, 636)
+- SMB (445)
+
+---
+
+# Kerberoasting
+
+## Flujo
+
+1. Enumerar usuarios con SPN
+2. Solicitar TGS
+3. Crackear offline
+
+## Herramientas
+
+```bash
+GetUserSPNs.py dominio/usuario:password -request
+```
+
+---
+
+# Pass-the-Hash
+
+## Concepto
+
+Usar hash NTLM directamente
+
+## Herramientas
+
+- CrackMapExec
+- impacket-psexec
+- Mimikatz
+
+---
+
+# Golden Ticket
+
+## Requisitos
+
+- Hash del krbtgt
+- SID del dominio
+
+## Impacto
+
+Acceso persistente como cualquier usuario
+
+---
+
+# Azure AD
+
+## Vulnerabilidades
+
+- Token theft
+- OAuth misconfigurations
+- Conditional Access bypass
+
+## Herramientas
+
+- AADInternals
+- ROADtools
+
+---
+
+# Pivoting
+
+## Técnicas
+
+- Proxy chaining
+- Port forwarding
+- Lateral movement
+
+## Herramientas
+
+- Chisel
+- Proxychains
+- SSH tunnels
+
+---
+
+# Laboratorio
+
+## TryHackMe: Attacktive Directory
+
+- Kerberoasting
+- Pass-the-Hash
+- Domain Admin
+
+---
+
+# Herramientas
+
+- BloodHound
+- Impacket
+- CrackMapExec
+- Mimikatz
+- Rubeus
+
+---
+
+# Caso Práctico: Golden Ticket
+
+## Concepto
+
+TGT forjado con hash KRBTGT
+
+## Impacto
+
+Persistencia indefinida en el dominio
+
+---
+
+# Defensas en AD
+
+## Mitigaciones
+
+- Credential Guard
+- LAPS para admin local
+- Protected Users group
+- Tiering model
+
+---
+
+# ASREPRoast
+
+## Técnica
+
+Usuarios con "Do not require Kerberos preauthentication"
+
+## Explotación
+
+```bash
+GetNPUsers.py domain.local/ -usersfile users.txt -dc-ip 10.10.10.10
+```
+
+---
+
+# Puntos Clave
+
+- Kerberos: entender TGT/TGS
+- BloodHound: visualizar attack paths
+- Pass-the-Hash funciona sin plaintext
+- Golden Ticket = persistencia máxima
+
+---
+
+# ¿Preguntas?
+
+## Discusión

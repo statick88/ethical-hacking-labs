@@ -1,0 +1,21 @@
+# Presentaciones - Ethical Hacking 2026
+
+## Índice
+
+0. [Unidad 0: Introducción al Curso](unidad0_intro.qmd)
+1. [Unidad 1: Fundamentos y Reconocimiento Agéntico](unidad1.qmd)
+2. [Unidad 2: Vulnerabilidades en IA y Modelos de Lenguaje](unidad2.qmd)
+3. [Unidad 3: Explotación Web y APIs 2026](unidad3.qmd)
+4. [Unidad 4: Hacking de Identidad y AD Moderno](unidad4.qmd)
+5. [Unidad 5: Pentesting Autónomo y Red Teaming Agéntico](unidad5.qmd)
+6. [Unidad 6: Evasión de Defensas](unidad6.qmd)
+7. [Unidad 7: Ciberseguridad Industrial](unidad7.qmd)
+8. [Unidad 8: Post-Explotación, Reporte y Ética](unidad8.qmd)
+
+## Configuración
+
+Las presentaciones utilizan el tema **Metropolis** de Quarto:
+
+```yaml
+format: metropolis-revealjs
+```

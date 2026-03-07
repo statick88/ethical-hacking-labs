@@ -1,0 +1,175 @@
+---
+title: "Unidad 6: Evasión de Defensas"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+- EDR Evasion
+- Antivirus Bypass
+- Antiforense
+- OpSec
+
+---
+
+# EDR Evasion
+
+## ¿Qué es EDR?
+
+Endpoint Detection and Response
+
+## Técnicas
+
+- Process Injection
+- DLL Hijacking
+- AMSI Bypass
+
+---
+
+# LOLBins
+
+## Binarios Légítimos
+
+| Binary | Función |
+|--------|---------|
+| certutil | Descargar archivos |
+| mshta | Ejecutar HTA |
+| regsvr32 | Ejecutar DLL |
+| powershell | Múltiples |
+
+---
+
+# Process Injection
+
+## Tipos
+
+- DLL Injection
+- Reflective DLL
+- Process Hollowing
+
+## AMSI Bypass
+
+```powershell
+[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)
+```
+
+---
+
+# Antivirus Bypass
+
+## Técnicas
+
+- Ofuscación
+- Encriptación
+- Packers
+
+## Herramientas
+
+- Invoke-Obfuscation
+- Shikata-Ga-Nai
+- UPX
+- DefenderCheck
+
+---
+
+# Antiforense
+
+## Timestomping
+
+```powershell
+(Get-Item file.exe).LastWriteTime = "01/01/2020"
+```
+
+## Artifact Wiping
+
+- Limpiar logs
+- Eliminar temporales
+
+---
+
+# OpSec
+
+## Principios
+
+- Segregar identidades
+- Minimizar footprints
+- Rotar infraestructura
+- No confiar en defensores
+
+---
+
+# Syscalls Directas
+
+## Concepto
+
+Bypass de hooks en ntdll.dll
+
+## Implementación
+
+Llamar directamente a syscalls sin API de Windows
+
+---
+
+# Herramientas
+
+- msfvenom
+- Veil Framework
+- Donut
+- ScareCrow
+- Invoke-Obfuscation
+
+---
+
+# Caso Práctico: AMSI Bypass
+
+## Técnica
+
+Patch en memoria de amsi.dll
+
+## Resultado
+
+PowerShell sin detección
+
+---
+
+# Laboratorio
+
+## Generar payload indetectable
+
+- msfvenom
+- Ofuscación
+- VirusTotal
+
+---
+
+# Process Hollowing
+
+## Técnica
+
+1. Crear proceso legítimo suspendido
+2. Unmappear su memoria
+3. Mapear payload malicioso
+4. Resumir ejecución
+
+---
+
+# Puntos Clave
+
+- AV usa signatures + heuristics + ML
+- Encoders: shikata_ga_nai ya detectado
+- AMSI: bypass requerido para PowerShell
+- OpSec: minimizar footprint
+
+---
+
+# ¿Preguntas?
+
+## Discusión

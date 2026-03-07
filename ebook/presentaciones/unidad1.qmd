@@ -1,0 +1,165 @@
+---
+title: "Unidad 1: Fundamentos y Reconocimiento Agéntico"
+subtitle: "Ethical Hacking 2026 — ABACOM"
+author: "Diego Saavedra"
+institute: "ABACOM"
+format:
+  metropolis-revealjs:
+    slide-number: true
+    transition: slide
+    center: true
+    footer: "Ethical Hacking 2026 - ABACOM"
+---
+
+# Agenda
+
+## Contenido de la Unidad
+
+- Metodología de Pentesting
+- Reconocimiento Agéntico
+- Herramientas de Escaneo
+- Laboratorio
+
+---
+
+# Objetivos de Aprendizaje
+
+## Al completar esta unidad podrás:
+
+- Identificar las fases del pentesting
+- Ejecutar técnicas de reconocimiento
+- Utilizar Nmap, Recon-ng y SpiderFoot
+
+---
+
+# Metodología de Pentesting
+
+## ¿Qué es el Pentesting?
+
+Evaluación de seguridad autorizada que simula ataques reales
+
+## Fases Principales
+
+1. **Reconocimiento** — Recolección de información
+2. **Escaneo** — Identificación de puertos y servicios
+3. **Explotación** — Aprovechamiento de vulnerabilidades
+4. **Post-Explotación** — Mantenimiento y escalamiento
+5. **Reporte** — Documentación de hallazgos
+
+---
+
+# Marcos de Trabajo
+
+## OSSTMM
+
+- Metodología científica
+- Medición de seguridad
+- Carnellie Index
+
+## PTES
+
+- Enfoque práctico
+- Pre-engagement → Inteligencia → Explotación → Reporte
+
+## OWASP Testing Guide
+
+- Específico para aplicaciones web
+
+---
+
+# Reconocimiento Agéntico
+
+## Tipos de Reconocimiento
+
+- **Pasivo**: Fuentes públicas, sin tocar el objetivo
+- **Activo**: Escaneo directo, más ruido
+
+## OSINT
+
+- Google Dorks
+- Shodan
+- theHarvester
+- Maltego
+
+---
+
+# Google Dorks
+
+## Ejemplos Prácticos
+
+```bash
+site:empresa.com filetype:pdf
+site:empresa.com "password"
+site:empresa.com inurl:admin
+```
+
+##shodan
+
+```
+product:apache example.com
+port:22 city:Madrid
+```
+
+---
+
+# Herramientas de Escaneo
+
+## Nmap
+
+```bash
+nmap -sS -sV -p- objetivo.com
+nmap --script vuln objetivo.com
+```
+
+## Recon-ng
+
+Framework modular de reconocimiento web
+
+## SpiderFoot
+
+Automatización OSINT con interfaz web
+
+---
+
+# Nmap en Acción
+
+## Escaneos Comunes
+
+| Flag | Descripción |
+|------|-------------|
+| -sS | TCP SYN |
+| -sV | Versiones |
+| -sC | Scripts por defecto |
+| -p- | Todos los puertos |
+| -O | Detección SO |
+
+---
+
+# Laboratorio
+
+## Escenario
+
+- Reconocimiento completo de objetivo
+- Usar Nmap y herramientas OSINT
+- Documentar hallazgos
+
+## Entregable
+
+- Reporte técnico de reconocimiento
+
+---
+
+# Recursos
+
+- Nmap Documentation
+- PTES Guidelines
+- TryHackMe: Reconnaissance
+
+---
+
+# ¿Preguntas?
+
+## Discusión
+
+- Dudas sobre las herramientas
+- Casos de uso reales
