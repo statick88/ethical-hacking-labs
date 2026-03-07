@@ -1,12 +1,178 @@
-# Ethical Hacking 2026 - ABACOM
+---
+title: "🛡️ Ethical Hacking Labs & Ebook"
+subtitle: "ABACOM™ Capacitación y Servicios Informáticos"
+author: "ABACOM - Ministerio de Trabajo"
+date: today
+lang: es
+---
 
-## Módulos del Curso
+# INTRODUCCIÓN A ETHICAL HACKING
 
-1. Fundamentos y Reconocimiento Agéntico
-2. Vulnerabilidades en IA y Modelos de Lenguaje
-3. Explotación Web y APIs 2026
-4. Hacking de Identidad y AD Moderno
-5. Pentesting Autónomo y Red Teaming Agéntico
-6. Evasión de Defensas
-7. Ciberseguridad Industrial
-8. Post-Explotación, Reporte y Ética
+**ABACOM™ Capacitación y Servicios Informáticos**, acreditados por el Sistema Nacional de Cualificaciones Profesionales mediante el Ministerio de Trabajo, con Resolución N° SETEC-CAL-2019-0183, te presenta el curso de **Ethical Hacking**.
+
+## Nuestra Misión
+
+Brindar servicios tecnológicos en el área **INFORMÁTICA** a la ciudadanía, con el compromiso de apoyar los aprendizajes y conocimientos a través de la educación de calidad, estimular el crecimiento tecnológico y contribuir al desarrollo de la región sur del país.
+
+## Nuestra Visión
+
+Llegar a ser el mejor centro de capacitación con un equipo humano invaluable y equipo tecnológico de primera, que llegue a toda la provincia de Loja y el austro ecuatoriano; así como también proveer un sistema de servicios excelente en el área de ventas y soporte técnico.
+
+---
+
+## Objetivos del Curso
+
+### Objetivo General
+
+Desarrollar habilidades para identificar, analizar y explotar vulnerabilidades en sistemas, redes y aplicaciones mediante técnicas de reconocimiento, escaneo y análisis de seguridad utilizadas en el ethical hacking.
+
+### Objetivos Específicos
+
+- Aplicar metodologías y herramientas de pentesting para explotar vulnerabilidades y evaluar la seguridad de infraestructuras tecnológicas en entornos controlados.
+- Elaborar informes técnicos de seguridad y aplicar principios éticos y legales en la realización de pruebas de penetración para fortalecer la protección de los sistemas informáticos.
+
+---
+
+## Requisitos de Inscripción
+
+- Llenar y firmar formulario de inscripción y adjuntar comprobante de pago del curso.
+- Adjuntar copia de cédula y/o pasaporte.
+- **Requisitos Técnicos (modalidad online):**
+  - Computador con conexión a Internet estable
+  - Webcam, micrófono y parlantes/audífonos
+  - Conocimientos de computación básica
+  - Docker instalado (para los laboratorios)
+
+---
+
+## Contenido del Curso
+
+### UNIDAD I: Fundamentos y Reconocimiento Agéntico
+
+1.1. OSINT avanzada con herramientas de IA  
+1.2. Reconocimiento pasivo y activo automatizado  
+1.3. Escaneo adaptativo con Nmap + IA  
+1.4. Enumeración de servicios y vulnerabilidades  
+1.5. Setup de laboratorio con Docker  
+
+**Lab Asociado:** `lab1` - Fundamentos y Reconocimiento
+
+---
+
+### UNIDAD II: Vulnerabilidades en IA y Modelos de Lenguaje
+
+2.1. Prompt Injection y Jailbreaking  
+2.2. Técnicas de Jailbreak para Bug Bounty: DAN, RUIN, Master-of-Prompt  
+2.3. Ataques a APIs de LLMs  
+2.4. Token smuggling y context overflow  
+2.5. Evaluación de seguridad de LLMs  
+2.6. Defensa contra Prompt Attacks  
+2.7. Bug Bounty en plataformas de IA: OpenAI, Anthropic, Google  
+
+**Lab Asociado:** `lab2` - Vulnerabilidades en IA
+
+---
+
+### UNIDAD III: Explotación Web y APIs 2026
+
+3.1. OWASP Top 10 2025  
+3.2. GraphQL Security Testing  
+3.3. Business Logic Vulnerabilities  
+3.4. Server-Side Request Forgery (SSRF)  
+3.5. API REST Security con OWASP ZAP  
+
+**Lab Asociado:** `lab3` - Explotación Web y APIs
+
+---
+
+### UNIDAD IV: Hacking de Identidad y AD Moderno
+
+4.1. Active Directory Attacks  
+4.2. Golden Ticket y Silver Ticket  
+4.3. Kerberoasting y AS-REP Roasting  
+4.4. Elusión de MFA y Pass-the-Cookie  
+4.5. Zero Trust 2.0: ZTNA vs VPN  
+
+**Lab Asociado:** `lab4` - Hacking de Identidad
+
+---
+
+### UNIDAD V: Pentesting Autónomo y Red Teaming Agéntico
+
+5.1. XBOW: Cross Site OWASP Scanning  
+5.2. Orquestación de agentes de pentesting  
+5.3. Automatización de reconocimiento  
+5.4. Red Team Operations  
+5.5. C2 frameworks: Sliver, Mythic  
+
+**Lab Asociado:** `lab5` - Red Teaming Agéntico
+
+---
+
+### UNIDAD VI: Evasión de Defensas
+
+6.1. Bypass de EDRs modernas  
+6.2. Técnicas de Evasión Trend Micro  
+6.3. Zig: Modern payload generation  
+6.4. Living Off the Land (LOLBAS)  
+6.5. Process injection techniques  
+
+**Lab Asociado:** `lab6` - Evasión de Defensas
+
+---
+
+### UNIDAD VII: Ciberseguridad Industrial
+
+7.1. Arquitectura OT/ICS  
+7.2. Protocolos Industriales: Modbus, OPC-UA, MQTT  
+7.3. SCADA Security Assessment  
+7.4. IoT Vulnerabilities  
+7.5. Hardening de Sistemas Industriales con OpenClaw  
+7.6. Pentesting Automatizado con Pentagi  
+7.7. Herramientas: PLCSploit, s7scan, OpenClaw, Pentagi  
+
+**Lab Asociado:** `lab7` - Ciberseguridad Industrial
+
+---
+
+### UNIDAD VIII: Post-Explotación, Reporte y Ética
+
+8.1. Post-explotación y pivoting  
+8.2. Persistencia y covert channels  
+8.3. Reporting profesional  
+8.4. Marco legal: GDPR, DORA  
+8.5. Código de ética del hacker ético  
+
+**Lab Asociado:** `lab8` - Post-Explotación y Ética
+
+---
+
+## Nuestros Clientes
+
+Gracias a la experiencia y calidad de todos nuestros servicios, ABACOM™ se ha posicionado en Loja como una de las empresas capacitadoras de mejor prestigio, siendo elegida por diversos clientes tanto del sector público como privado:
+
+- Consejo Nacional Electoral
+- ESPOCH
+- Municipio de Morona
+- Soluciones en Soldadura
+- CELEC EP (Corporación Eléctrica de Ecuador)
+- Banco de Loja
+- CACPE Loja
+- Prefectura de Pichincha
+- Secretaría Nacional de Comunicación
+- Universidad Católica de Cuenca
+- Y muchas más...
+
+---
+
+## Contacto
+
+**ABACOM™ Capacitación y Servicios Informáticos**
+
+📍 Máximo Agustín Rodríguez 16-40 y González Suárez, Loja - Ecuador  
+📱 +593 99 493 1693  
+🌐 www.abacom.ec
+
+---
+
+*Acreditados por el Ministerio de Trabajo mediante Resolución N° SETEC-CAL-2019-0183*
