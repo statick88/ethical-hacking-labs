@@ -257,3 +257,4 @@ Modernización curricular 2026 con énfasis en IA, automatización y defensas co
 ---
 
 **"Capacitación de calidad para el desarrollo tecnológico de la región sur del Ecuador"** 🇪🇨
+
